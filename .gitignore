@@ -1,0 +1,37 @@
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.run.xml
+
+# LaTeX output files
+*.pdf
+*.dvi
+*.ps
+
+# Biber cache
+*.bib.bak
+*.bib.sav
+
+# Editor backup files
+*~
+*.swp
+*.swo
+*#
+
+# OS generated files
+.DS_Store
+Thumbs.db

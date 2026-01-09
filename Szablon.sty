@@ -1,0 +1,312 @@
+%% ============================================================================
+%% SZABLON.STY - Pakiet stylu LaTeX dla prac dyplomowych
+%% ============================================================================
+%% Wersja: 2.0
+%% Autor: Sebastian Kolanowski
+%% Instytucja: WSPiA Lublin
+%% Opis: Uniwersalny pakiet stylu LaTeX do formatowania polskich prac dyplomowych
+%% ============================================================================
+
+\NeedsTeXFormat{LaTeX2e}[2020/02/02]
+\ProvidesPackage{Szablon}[2025/12/17 v2.0 Uniwersalny pakiet szablonu pracy dyplomowej]
+
+% ============================================================================
+% OBSŁUGA JĘZYKA I KODOWANIA
+% ============================================================================
+\RequirePackage[polish]{babel}                % Obsługa języka polskiego
+\RequirePackage[T1]{fontenc}                  % Obsługa 8-bitowego kodowania czcionek
+\RequirePackage{csquotes}                     % Zaawansowana obsługa cytatów (wymagane przez biblatex)
+
+% ============================================================================
+% SKŁAD MATEMATYCZNY
+% ============================================================================
+\RequirePackage{amsmath}                      % Rozszerzone formatowanie matematyczne
+\RequirePackage{amssymb}                      % Dodatkowe symbole matematyczne
+
+% ============================================================================
+% KONFIGURACJA CZCIONEK
+% ============================================================================
+\RequirePackage{mathptmx}                     % Czcionka Times Roman dla tekstu i matematyki
+\RequirePackage{newtxtext}                    % Nowoczesna czcionka Times dla tekstu
+\RequirePackage{newtxmath}                    % Nowoczesna czcionka Times dla matematyki
+
+
+% ============================================================================
+% FORMATOWANIE I UKŁAD DOKUMENTU
+% ============================================================================
+% Podstawowe pakiety formatowania
+\RequirePackage{geometry}                     % Układ strony i marginesy
+\RequirePackage{setspace}                     % Kontrola odstępów między liniami
+\RequirePackage{fancyhdr}                     % Niestandardowe nagłówki i stopki
+
+% Formatowanie tekstu i akapitów
+\RequirePackage{etoolbox}                     % Rozszerzone programowanie LaTeX
+
+% Elementy wizualne i grafika
+\RequirePackage{graphicx}                     % Dołączanie grafiki
+\RequirePackage{caption}                      % Ulepszone formatowanie podpisów
+
+% Formatowanie tabel
+\RequirePackage{booktabs}                     % Profesjonalne formatowanie tabel
+\RequirePackage{cellspace}                    % Odstępy w komórkach tabeli
+
+% Spis treści i listy
+\RequirePackage{tocloft}                      % Dostosowanie formatowania spisu treści
+
+% Odsyłacze i łącza
+\RequirePackage{hyperref}                     % Hiperłącza PDF
+\RequirePackage{lastpage}                     % Odniesienie do ostatniej strony
+
+% ============================================================================
+% ZARZĄDZANIE BIBLIOGRAFIĄ I CYTOWANIAMI
+% ============================================================================
+% Konfiguracja BibLaTeX z backend Biber dla obsługi unicode i zaawansowanej bibliografii
+\usepackage[backend=biber,style=numeric,sorting=nty,autolang=hyphen]{biblatex}
+
+% Formatowanie pól bibliograficznych dla polskich wymagań akademickich
+\DeclareFieldFormat{url}{\url{#1}}                    % Formatowanie URL jako aktywne hiperłącza
+\DeclareFieldFormat{urldate}{\addcomma\space Dostęp\addcolon\space#1}  % Polski format daty dostępu
+
+% Wskazanie pliku z bazą danych bibliograficznej
+\addbibresource{references.bib}                      % Baza danych bibliografii (BibTeX format)
+
+% ============================================================================
+% KONFIGURACJA TYPOGRAFII I JAKOŚCI SKŁADU
+% ============================================================================
+% Pakiet microtype poprawia jakość składu tekstu poprzez:
+% - Character protrusion (wysunięcie znaków poza margines)
+% - Font expansion (mikro-rozszerzanie czcionek)
+% - Optyczne wyrównanie marginesów
+% - Redukcja overfull/underfull hbox warnings
+\RequirePackage{microtype}                     % Ulepszona typografia mikro-poziomowa
+
+% ============================================================================
+% KONFIGURACJA I USTAWIENIA DOKUMENTU
+% ============================================================================
+
+% ============================================================================
+%% KONFIGURACJA ODSTĘPÓW I WYMIARÓW
+% ============================================================================
+
+% Formatowanie spisu treści - kontrola odstępów między elementami
+\setlength{\cftbeforesecskip}{6pt}            % Odstępy sekcji w spisie treści
+
+% Konfiguracja odstępów w komórkach tabeli (pakiet cellspace)
+\setlength\cellspacetoplimit{1px}             % Wypełnienie górne komórki tabeli
+\setlength\cellspacebottomlimit{1px}          % Wypełnienie dolne komórki tabeli
+
+% Konfiguracja wysokości nagłówka (rozwiązuje LaTeX warnings)
+\setlength{\headheight}{14.5pt}               % Dostosowanie wysokości nagłówka do fancyhdr
+
+% Konfiguracja geometrii strony dla układu książkowego
+\geometry{
+	twoside=true,                               % Układ dwustronny dokumentu
+	inner=3.5cm,                                % Margines wewnętrzny (strona oprawy)
+	outer=2.5cm,                                % Margines zewnętrzny
+	top=2.5cm,                                  % Margines górny
+	bottom=2.5cm,                               % Margines dolny
+	footskip=1cm,                               % Odstęp stopki
+}
+
+% Konfiguracja odstępów między liniami
+\onehalfspacing                                 % Odstęp 1,5 linii dla prac akademickich
+
+% Konfiguracja hiperłączy podstawowej (bez metadanych PDF)
+% Ustawienia kolorów dostosowane do wymagań prac akademickich
+\hypersetup{
+	colorlinks=true,                            % Włącz kolorowe łącza (lepsze niż ramki)
+	linkcolor=blue,                             % Kolor łączy wewnętrznych (spis treści, referencje)
+	filecolor=magenta,                          % Kolor łączy do plików lokalnych
+	urlcolor=cyan,                              % Kolor łączy URL (bibliografia)
+	citecolor=blue,                             % Kolor łączy cytowań (jednolity z linkcolor)
+}
+
+% Konfiguracja metadanych PDF - używa zmiennych zdefiniowanych w dokumencie głównym
+% Metadane są ustawiane po pełnym załadowaniu dokumentu aby uniknąć błędów
+% związanych z niezdefiniowanymi komendami
+\AtBeginDocument{
+	\hypersetup{
+		pdftitle={\pdfTitle},                    % Tytuł dokumentu PDF
+		pdfauthor={\pdfAuthor},                  % Autor dokumentu PDF
+		pdfsubject={\pdfSubject},                % Temat dokumentu PDF
+		pdfkeywords={\pdfKeywords}               % Słowa kluczowe dla wyszukiwarek PDF
+	}
+}
+
+% ============================================================================
+% KONFIGURACJA STYLU STRONY I NAGŁÓWKÓW/STOPEK
+% ============================================================================
+
+% ============================================================================
+% OPCJE STYLÓW NUMERACJI STRON
+% ============================================================================
+
+% Styl 1: Numeracja na dole, zewnętrzna-wewnętrzna (książkowy)
+\newcommand{\setupPageStyleBottomOuter}{
+	\fancyhf{}                                  % Wyczyść wszystkie pola nagłówka/stopki
+	\renewcommand{\headrulewidth}{0pt}          % Usuń linię nagłówka
+	\renewcommand{\footrulewidth}{0pt}          % Usuń linię stopki
+	\fancyfoot[LE]{\thepage}                    % Strony parzyste: lewo (zewnętrzny)
+	\fancyfoot[RO]{\thepage}                    % Strony nieparzyste: prawo (zewnętrzny)
+}
+
+% Styl 2: Numeracja na dole, wyśrodkowana
+\newcommand{\setupPageStyleBottomCenter}{
+	\fancyhf{}                                  % Wyczyść wszystkie pola nagłówka/stopki
+	\renewcommand{\headrulewidth}{0pt}          % Usuń linię nagłówka
+	\renewcommand{\footrulewidth}{0pt}          % Usuń linię stopki
+	\fancyfoot[C]{\thepage}                     % Środek stopki
+}
+
+% Styl 3: Numeracja na górze, zewnętrzna-wewnętrzna
+\newcommand{\setupPageStyleTopOuter}{
+	\fancyhf{}                                  % Wyczyść wszystkie pola nagłówka/stopki
+	\renewcommand{\headrulewidth}{0pt}          % Usuń linię nagłówka
+	\renewcommand{\footrulewidth}{0pt}          % Usuń linię stopki
+	\fancyhead[LE]{\thepage}                    % Strony parzyste: lewo (zewnętrzny)
+	\fancyhead[RO]{\thepage}                    % Strony nieparzyste: prawo (zewnętrzny)
+}
+
+% Styl 4: Numeracja na górze, wyśrodkowana
+\newcommand{\setupPageStyleTopCenter}{
+	\fancyhf{}                                  % Wyczyść wszystkie pola nagłówka/stopki
+	\renewcommand{\headrulewidth}{0pt}          % Usuń linię nagłówka
+	\renewcommand{\footrulewidth}{0pt}          % Usuń linię stopki
+	\fancyhead[C]{\thepage}                     % Środek nagłówka
+}
+
+% ============================================================================
+% DOMYŚLNY STYL NUMERACJI (MOŻNA ZMIENIĆ W DOKUMENCIE GŁÓWNYM)
+% ============================================================================
+
+% Domyślnie używaj stylu zewnętrzna-wewnętrzna na dole (styl książkowy)
+\newcommand{\setupPageStyle}{\setupPageStyleBottomOuter}
+
+% Styl plain dla pierwszych stron rozdziałów
+\fancypagestyle{plain}{
+	\setupPageStyle
+}
+
+% Domyślny styl fancy dla zwykłych stron
+\fancypagestyle{fancy}{
+	\setupPageStyle
+}
+
+
+% ============================================================================
+% DEFINICJE KOMEND NIESTANDARDOWYCH
+% ============================================================================
+
+% Styl strony dla strony tytułowej ze stopką
+\fancypagestyle{titlepage}{
+	\fancyhf{}                                  % Wyczyść wszystkie pola nagłówka/stopki
+	\renewcommand{\headrulewidth}{0pt}          % Usuń linię nagłówka
+	\renewcommand{\footrulewidth}{0pt}          % Usuń linię stopki
+	\fancyfoot[C]{\titlePageFooter}             % Stopka na środku strony tytułowej
+}
+
+% Komenda do tworzenia strony tytułowej z walidacją wymaganych pól
+% Automatycznie sprawdza czy wszystkie niezbędne zmienne zostały zdefiniowane
+\newcommand{\maketitlepage}{
+	\pagenumbering{gobble}                      % Wyłącz numerację stron dla części wstępnej
+	\begin{titlepage}
+		\thispagestyle{titlepage}               % Zastosuj styl ze stopką
+		\begin{center}
+			% Logo uczelni (opcjonalne) - automatyczna walidacja ścieżki
+			\ifdefvoid{\logoPath}{
+				\PackageWarning{Szablon}{Ścieżka logo nie zdefiniowana - pomijanie logo}
+			}{
+				\includegraphics[width=0.68\linewidth]{\logoPath}\\[.35cm]
+			}
+
+			% Nazwa uczelni
+			\ifdefvoid{\universityName}{
+				\PackageError{Szablon}{Nazwa uczelni nie zdefiniowana}%
+				{Proszę zdefiniować komendę \noexpand\universityName}
+			}{
+				\large\textbf{\universityName}\\[1cm]
+			}
+
+			% Informacje o studiach
+			\ifdefvoid{\fieldOfStudy}{}{\large Kierunek: \textbf{\fieldOfStudy}\\}
+			\ifdefvoid{\studyMode}{}{\large Tryb studiów: \textbf{\studyMode}\\}
+			\ifdefvoid{\studyLevel}{}{\large Poziom studiów: \textbf{\studyLevel}\\[2cm]}
+
+			% Tytuły pracy
+			\ifdefvoid{\thesisTitlePL}{
+				\PackageError{Szablon}{Polski tytuł pracy nie zdefiniowany}%
+				{Proszę zdefiniować komendę \noexpand\thesisTitlePL}
+			}{
+				\large\textbf{\thesisTitlePL}\\
+			}
+			\ifdefvoid{\thesisTitleEN}{}{(\large\thesisTitleEN)\\}
+
+			\vfill
+
+			% Informacje o autorze
+			\begin{flushright}
+				\ifdefvoid{\student}{
+					\PackageError{Szablon}{Imię i nazwisko studenta nie zdefiniowane}%
+					{Proszę zdefiniować komendę \noexpand\student}
+				}{
+					Autor: \textbf{\student}\\
+				}
+				\ifdefvoid{\albumNumber}{}{Nr albumu: \textbf{\albumNumber}\\}
+				\ifdefvoid{\supervisor}{}{Promotor: \textbf{\supervisor}\\}
+			\end{flushright}
+		\end{center}
+	\end{titlepage}
+}
+
+% Komenda dla strony oświadczeń urzędowych
+% Implementuje wymagane prawnie oświadczenia dla prac dyplomowych w Polsce
+\newcommand{\startstatement}{
+	% Oświadczenie promotora
+	\noindent\textbf{Oświadczenie kierującego pracą}
+
+	\noindent Oświadczam, iż niniejsza praca została przygotowana pod moim kierunkiem
+	i stwierdzam, że spełnia ona warunki do przedstawienia jej w postępowaniu
+	o nadanie tytułu zawodowego.
+
+	\vspace{1cm}
+	\noindent\begin{tabular}{p{0.45\textwidth}p{0.45\textwidth}}
+		\dotfill          & \dotfill            \\
+		\centering (Data) & \centering (Podpis)
+	\end{tabular}
+
+	\vfill
+
+	% Oświadczenie autora
+	\noindent\textbf{Oświadczenie autora pracy}
+
+	\noindent Świadomy odpowiedzialności prawnej oświadczam, iż niniejsza praca
+	dyplomowa została napisana przeze mnie samodzielnie, nie narusza praw autorskich
+	w rozumieniu ustawy z dnia 4 lutego 1994 roku o prawie autorskim i prawach
+	pokrewnych (Dz.U. Nr 24, poz. 83 z późn. zm.) oraz dóbr osobistych chronionych
+	prawem cywilnym, a dodatkowo nie zawiera treści uzyskanych w sposób niezgodny
+	z obowiązującymi przepisami.
+
+	\noindent Oświadczam również, że przedstawiona praca nie była wcześniej
+	przedmiotem procedur związanych z uzyskaniem tytułu zawodowego w wyższej uczelni.
+
+	\noindent Ponadto oświadczam, iż niniejsza wersja pracy jest identyczna
+	z załączoną wersją elektroniczną.
+
+	\vspace{1cm}
+	\noindent\begin{tabular}{p{0.45\textwidth}p{0.45\textwidth}}
+		\dotfill          & \dotfill            \\
+		\centering (Data) & \centering (Podpis)
+	\end{tabular}
+
+	\vfill
+}
+
+% Komenda do rozpoczęcia numeracji stron właściwej treści
+% Ustawia numerację arabską rozpoczynając od strony 5 (po stronach wstępnych)
+\newcommand{\startnumbering}{
+	\clearpage
+	\pagenumbering{arabic}                      % Włącz numerację arabską stron
+	\setcounter{page}{5}                        % Rozpocznij liczenie od strony 5
+}
+
+\endinput

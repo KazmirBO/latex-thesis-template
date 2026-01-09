@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{Szablon}
+
+% ============================================================================
+% DEFINICJE ZMIENNYCH - DOSTOSUJ DO SWOJEJ UCZELNI I PRACY
+% ============================================================================
+
+% Ścieżka do logo uczelni (opcjonalne)
+\newcommand{\logoPath}{./img/logo.png}
+
+% Dane uczelni
+\newcommand{\universityName}{Nazwa Twojej Uczelni}
+\newcommand{\fieldOfStudy}{Kierunek studiów}
+\newcommand{\studyMode}{Tryb studiów (stacjonarny/niestacjonarny)}
+\newcommand{\studyLevel}{Poziom studiów (I/II stopnia)}
+
+% Tytuły pracy
+\newcommand{\thesisTitlePL}{Tytuł pracy magisterskiej w języku polskim}
+\newcommand{\thesisTitleEN}{Title of the Master's Thesis in English}
+
+% Dane autora i promotora
+\newcommand{\student}{Imię i Nazwisko}
+\newcommand{\albumNumber}{Numer albumu}
+\newcommand{\supervisor}{Tytuł naukowy Imię Nazwisko promotora}
+
+% Stopka dokumentu
+\newcommand{\titlePageFooter}{Lublin \the\year}
+
+% ============================================================================
+% WYBÓR STYLU NUMERACJI STRON (odkomentuj jeden z poniższych)
+% ============================================================================
+% Styl 1: Numeracja na dole, zewnętrzna-wewnętrzna (książkowy) - DOMYŚLNY
+% \renewcommand{\setupPageStyle}{\setupPageStyleBottomOuter}
+
+% Styl 2: Numeracja na dole, wyśrodkowana
+% \renewcommand{\setupPageStyle}{\setupPageStyleBottomCenter}
+
+% Styl 3: Numeracja na górze, zewnętrzna-wewnętrzna
+% \renewcommand{\setupPageStyle}{\setupPageStyleTopOuter}
+
+% Styl 4: Numeracja na górze, wyśrodkowana
+% \renewcommand{\setupPageStyle}{\setupPageStyleTopCenter}
+
+% ============================================================================
+% METADANE PDF - AUTOMATYCZNIE WYPEŁNIANE
+% ============================================================================
+\newcommand{\pdfTitle}{\thesisTitlePL}
+\newcommand{\pdfAuthor}{\student}
+\newcommand{\pdfSubject}{Praca magisterska - \fieldOfStudy}
+\newcommand{\pdfKeywords}{praca magisterska, \fieldOfStudy, \universityName}
+
+% ============================================================================
+% POCZĄTEK DOKUMENTU
+% ============================================================================
+\begin{document}
+
+% Ustawienie stylu strony
+\maketitlepage
+
+\clearpage
+\mbox{}
+\clearpage
+
+% Strona z oświadczeniami
+\startstatement
+
+\clearpage
+\mbox{}
+\clearpage
+
+% Rozpoczęcie numeracji właściwej treści
+\startnumbering
+\pagestyle{fancy}
+
+% ============================================================================
+% SPIS TREŚCI
+% ============================================================================
+\tableofcontents
+
+% ============================================================================
+% TREŚĆ PRACY - DODAJ SWOJE ROZDZIAŁY
+% ============================================================================
+
+\chapter*{Wstęp}
+\addcontentsline{toc}{chapter}{Wstęp}
+
+\chapter{Treść pracy dyplomowej}
+
+\chapter*{Zakończenie}
+\addcontentsline{toc}{chapter}{Zakończenie}
+
+% ============================================================================
+% BIBLIOGRAFIA
+% ============================================================================
+\addcontentsline{toc}{chapter}{Bibliografia}
+\printbibliography[title=Bibliografia]
+
+\end{document}
