@@ -1,60 +1,66 @@
-# Szablon LaTeX dla Prac Dyplomowych
+# 🎓 Szablon LaTeX dla Prac Dyplomowych
 
-## 📋 Opis
+Uniwersalny szablon LaTeX do formatowania polskich prac dyplomowych (licencjackich i magisterskich) z automatycznym formatowaniem, wieloma stylami numeracji stron i zgodnym z wymaganiami akademickimi układem.
 
-Uniwersalny szablon LaTeX do formatowania polskich prac dyplomowych (licencjackich i magisterskich).
+![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=flat&logo=latex&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Version](https://img.shields.io/badge/Version-2.2-blue.svg)
 
 ## 🚀 Szybki start
 
-### 1. Przygotowanie środowiska
+### 1. 🔧 Przygotowanie środowiska
 
-Szablon przetestowany na systemie GNU/Linux dystrybucji Gentoo.
-Działanie na Windows nie jest w 100% przetestowane.
+> **Uwaga:** Szablon przetestowany z **LuaLaTeX** i **Biber** na systemie GNU/Linux dystrybucji Gentoo. Uruchamiany na Windows, ale działanie nie jest w 100% gwarantowane. Inne kompilatory nie były testowane.
 
+**Linux (Ubuntu/Debian):**
 ```bash
-# Instalacja LaTeX (Ubuntu/Debian)
 sudo apt-get install texlive-full biber
-
-# Lub (Windows)
-# Zainstaluj MiKTeX z https://miktex.org/
-# albo TexLive z https://www.tug.org/texlive/
 ```
 
-### 2. Struktura plików
+**Windows:**
+- [MiKTeX](https://miktex.org/) - zalecane dla użytkowników Windows
+- [TeX Live](https://www.tug.org/texlive/) - alternatywa wieloplatformowa
+
+### 2. 📁 Struktura plików
 
 ```
 twoja-praca/
-├── Szablon.sty          # Pakiet stylu (skopiuj z tego katalogu)
-├── Szablon.tex          # Główny plik (skopiuj i dostosuj)
-├── references.bib       # Bibliografia (skopiuj i wypełnij)
-├── img/                 # Katalog na obrazy
-│   └── logo.png        # Logo uczelni
-└── chapters/           # Katalog na rozdziały (opcjonalny)
-    ├── 01-wstep.tex
-    ├── 02-przegląd.tex
+├── 📄 Szablon.sty          # Pakiet stylu (skopiuj z tego katalogu)
+├── 📄 Szablon.tex          # Główny plik (skopiuj i dostosuj)
+├── 📄 references.bib       # Bibliografia (skopiuj i wypełnij)
+├── 📁 img/                 # Katalog na obrazy
+│   └── 🖼️ logo.png        # Logo uczelni
+└── 📁 chapters/           # Katalog na rozdziały (opcjonalny)
+    ├── 📄 01-wstep.tex
+    ├── 📄 02-przegląd.tex
     └── ...
 ```
 
-### 3. Dostosowanie szablonu
+### 3. ⚙️ Dostosowanie szablonu
 
 #### Edytuj zmienne w pliku `Szablon.tex`:
 
 ```latex
+% Ścieżka do logo uczelni (opcjonalne)
+\newcommand{\logoPath}{./img/logo.png}
+
 % Dane uczelni
-\newcommand{\universityName}{Twoja Uczelnia}
-\newcommand{\fieldOfStudy}{Twój kierunek}
-\newcommand{\studyMode}{stacjonarny/niestacjonarny}
-\newcommand{\studyLevel}{I/II stopnia}
+\newcommand{\universityName}{Nazwa Twojej Uczelni}
+\newcommand{\fieldOfStudy}{Kierunek studiów}
+\newcommand{\studyMode}{Tryb studiów (stacjonarny/niestacjonarny)}
+\newcommand{\studyLevel}{Poziom studiów (I/II stopnia)}
 
 % Tytuły pracy
-\newcommand{\thesisTitlePL}{Twój tytuł po polsku}
-\newcommand{\thesisTitleEN}{Your title in English}
+\newcommand{\thesisTitlePL}{Tytuł pracy magisterskiej w języku polskim}
+\newcommand{\thesisTitleEN}{Title of the Master's Thesis in English}
 
-% Dane osobowe
-\newcommand{\student}{Twoje Imię i Nazwisko}
-\newcommand{\albumNumber}{12345}
-\newcommand{\supervisor}{dr hab. Jan Kowalski}
-\newcommand{\titlePageFooter}{Miasto 2024}
+% Dane autora i promotora
+\newcommand{\student}{Imię i Nazwisko}
+\newcommand{\albumNumber}{Numer albumu}
+\newcommand{\supervisor}{Tytuł naukowy Imię Nazwisko promotora}
+
+% Stopka dokumentu
+\newcommand{\titlePageFooter}{Lublin \the\year}
 
 % Wybór stylu numeracji (odkomentuj wybraną opcję):
 % \renewcommand{\setupPageStyle}{\setupPageStyleBottomOuter}    % Domyślny: dół, zewnętrzna-wewnętrzna
@@ -63,60 +69,77 @@ twoja-praca/
 % \renewcommand{\setupPageStyle}{\setupPageStyleTopCenter}      % Góra, środek
 ```
 
-### 4. Kompilacja
+### 4. 🔨 Kompilacja
 
-Zalecany kompilator dla LaTeX to `lualatex`, a dla bibliografi `biber`.
+> **Zalecane:** Szablon został zaprojektowany i przetestowany z `lualatex` i `biber`. Inne kompilatory nie były testowane i mogą powodować problemy.
 
+**Standardowa kompilacja:**
 ```bash
-# Standardowa kompilacja
 lualatex Szablon.tex
 biber Szablon
 lualatex Szablon.tex
 lualatex Szablon.tex
+```
 
-# Lub z latexmk
+**Z latexmk (automatyzacja):**
+```bash
 latexmk -lualatex -biber Szablon.tex
 ```
 
-## 📚 Funkcje szablonu
+## ✨ Funkcje szablonu
 
-### ✅ Automatyczne formatowanie
+<details>
+<summary><strong>📐 Automatyczne formatowanie</strong></summary>
 
-- **Układ dwustronny** z odpowiednimi marginesami
-- **Odstęp 1,5 linii** zgodny z wymaganiami akademickimi
-- **Czcionka Times New Roman** (12pt)
-- **Automatyczna numeracja** stron i rozdziałów
-- **Wybór stylu numeracji stron** (4 opcje: dół/góra, środek/zewnętrzny)
+- ✅ **Układ dwustronny** z odpowiednimi marginesami
+- ✅ **Odstęp 1,5 linii** zgodny z wymaganiami akademickimi  
+- ✅ **Czcionka Times New Roman** (12pt)
+- ✅ **Automatyczna numeracja** stron i rozdziałów
+- ✅ **Wybór stylu numeracji stron** (4 opcje: dół/góra, środek/zewnętrzny)
 
-### ✅ Strona tytułowa
+</details>
 
-- Automatyczne generowanie na podstawie zmiennych
-- Walidacja wymaganych pól
-- Wsparcie dla logo uczelni (opcjonalne)
+<details>
+<summary><strong>📋 Strona tytułowa</strong></summary>
 
-### ✅ Oświadczenia prawne
+- ✅ Automatyczne generowanie na podstawie zmiennych
+- ✅ Walidacja wymaganych pól
+- ✅ Wsparcie dla logo uczelni (opcjonalne)
 
-- Oświadczenie promotora
-- Oświadczenie autora o samodzielności
-- Zgodne z polskimi wymogami prawnymi
+</details>
 
-### ✅ Bibliografia
+<details>
+<summary><strong>📝 Oświadczenia prawne</strong></summary>
 
-- Format **BibTeX** z silnikiem **Biber**
-- Polski format dat dostępu
-- Wsparcie dla DOI i URL
-- Automatyczne formatowanie
+- ✅ Oświadczenie promotora
+- ✅ Oświadczenie autora o samodzielności
+- ✅ Zgodne z polskimi wymogami prawnymi
 
-### ✅ Typografia
+</details>
 
-- Pakiet **microtype** dla lepszej jakości składu
-- Eliminacja problemów z `overfull hbox`
-- Profesjonalne formatowanie tabel
-- Hiperłącza PDF
+<details>
+<summary><strong>📖 Bibliografia</strong></summary>
+
+- ✅ Format **BibTeX** z silnikiem **Biber**
+- ✅ Polski format dat dostępu
+- ✅ Wsparcie dla DOI i URL
+- ✅ Automatyczne formatowanie
+
+</details>
+
+<details>
+<summary><strong>🎨 Typografia</strong></summary>
+
+- ✅ Pakiet **microtype** dla lepszej jakości składu
+- ✅ Eliminacja problemów z `overfull hbox`
+- ✅ Profesjonalne formatowanie tabel
+- ✅ Hiperłącza PDF
+
+</details>
 
 ## 📝 Pisanie treści
 
-### Struktura rozdziałów
+### 📑 Struktura rozdziałów
 
 ```latex
 \chapter{Nazwa rozdziału}
@@ -143,7 +166,7 @@ oraz bez widoczności w spisie:
 \subsection*{Nazwa podsekcji}
 ```
 
-### Cytowania
+### 📚 Cytowania
 
 ```latex
 % W tekście
@@ -153,7 +176,7 @@ Według badań \cite{kowalski2024}...
 \printbibliography[title=Bibliografia]
 ```
 
-### Obrazy
+### 🖼️ Obrazy
 
 ```latex
 \begin{figure}[ht]
@@ -164,7 +187,7 @@ Według badań \cite{kowalski2024}...
 \end{figure}
 ```
 
-### Tabele
+### 📊 Tabele
 
 ```latex
 \begin{table}[ht]
@@ -183,9 +206,9 @@ Według badań \cite{kowalski2024}...
 \end{table}
 ```
 
-## ⚙️ Dostosowywanie wyglądu
+## 🎨 Dostosowywanie wyglądu
 
-### Styl numeracji stron
+### 📄 Styl numeracji stron
 
 Szablon oferuje 4 style numeracji stron. Aby zmienić styl, odkomentuj wybraną linię w pliku `Szablon.tex`:
 
@@ -209,9 +232,9 @@ Szablon oferuje 4 style numeracji stron. Aby zmienić styl, odkomentuj wybraną 
 - **Wyśrodkowana** - numery zawsze na środku strony
 - **Dół/Góra** - pozycja numerów na stronie
 
-## 🔧 Rozwiązywanie problemów
+## 🚨 Rozwiązywanie problemów
 
-### Błądy kompilacji
+### ❌ Błędy kompilacji
 
 ```bash
 # Wyczyść pliki tymczasowe
@@ -223,27 +246,27 @@ biber Szablon
 lualatex Szablon.tex
 ```
 
-### Problemy z polskimi znakami
+### 🔤 Problemy z polskimi znakami
 
 - Używaj kodowania **UTF-8**
 - Upewnij się, że masz zainstalowany pakiet `babel[polish]`
 - Sprawdź ustawienia edytora tekstu
 
-### Problemy z bibliografią
+### 📚 Problemy z bibliografią
 
 - Sprawdź składnię pliku `.bib`
 - Upewnij się, że używasz `biber` (nie `bibtex`)
 - Cytuj tylko te źródła, które są w pliku `.bib`
 
-## 📋 Wymagania systemowe
+## 🖥️ Wymagania systemowe
 
-### Minimalne wymagania LaTeX
+### 📋 Minimalne wymagania LaTeX
 
 - **TeX Live 2020** lub nowszy
-- **LuaLaTeX** (zalecany) lub **pdfLaTeX**
+- **LuaLaTeX** (zalecany, przetestowany)
 - **Biber** do bibliografii
 
-### Zalecane pakiety
+### 📦 Zalecane pakiety
 
 ```
 babel, fontenc, csquotes, amsmath, amssymb, mathptmx,
@@ -254,21 +277,27 @@ tocloft, hyperref, lastpage, biblatex, microtype
 
 ## 📄 Licencja
 
-Ten szablon jest udostępniony na licencji MIT. Możesz go swobodnie używać, modyfikować i dystrybuować.
+Ten szablon jest udostępniony na licencji **MIT**. Możesz go swobodnie używać, modyfikować i dystrybuować.
 
-## 👥 Autor
+## 👨‍💻 Autor
 
-**Sebastian Kolanowski**
-Wersja: 2.2 (styczeń 2026)
+**Sebastian Kolanowski**  
+📅 Wersja: 2.2 (styczeń 2026)
 
 ## 🆘 Wsparcie
 
 W przypadku problemów:
 
-1. Sprawdź sekcję "Rozwiązywanie problemów"
-2. Upewnij się, że masz aktualną wersję LaTeX
-3. Sprawdź logi kompilacji w poszukiwaniu błędów
+1. 📖 Sprawdź sekcję "[Rozwiązywanie problemów](#-rozwiązywanie-problemów)"
+2. ⚡ Upewnij się, że masz aktualną wersję LaTeX
+3. 🔍 Sprawdź logi kompilacji w poszukiwaniu błędów
 
 ---
 
-**Powodzenia z pisaniem pracy dyplomowej! 🎓**
+<div align="center">
+
+**🎓 Powodzenia z pisaniem pracy dyplomowej!**
+
+[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KazmirBO/latex-thesis-template)
+
+</div>
